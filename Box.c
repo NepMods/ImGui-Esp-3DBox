@@ -1,13 +1,22 @@
+#define CREATE_COLOR(r, g, b, a) new float[4] {(float)r, (float)g, (float)b, (float)a};
+float *EspAlive = CREATE_COLOR(255, 255, 255, 255);
+Vector3 add(Vector3 a, Vector3 b) {
+    Vector3 c;
+    c.x= a.x + b.x;
+    c.y = a.y + b.y;
+    c.z = a.z + b.z;
+    return c;
+}
 void Draw3dBox(ImDrawList *draw,Vector3 Transform,void * camera,int glHeight,int glWidth)
 {
-    Vector3 position2 = Transform + Vector3(0.6, 1.6, 0.6); 
-    Vector3 position3 = Transform + Vector3(0.6, 0, 0.6);
-    Vector3 position4 = Transform + Vector3(-0.5, 0, 0.6); 
-    Vector3 position5 = Transform + Vector3(-0.5, 1.6, 0.6);
-    Vector3 position6 = (Transform + Vector3(0.6, 1.6, 0)) + Vector3(0, 0, -0.6);
-    Vector3 position7 = (Transform + Vector3(0.6, 0, 0)) + Vector3(0, 0, -0.6);
-    Vector3 position8 = (Transform + Vector3(-0.5, 0, 0)) + Vector3(0, 0, -0.6); 
-    Vector3 position9 = (Transform + Vector3(-0.5, 1.6, 0)) + Vector3(0, 0, -0.6);
+    Vector3 position2 = add(Transform, Vector3(0.6, 1.6, 0.6)); 
+    Vector3 position3 = add(Transform, Vector3(0.6, 0, 0.6));
+    Vector3 position4 = add(Transform, Vector3(-0.5, 0, 0.6)); 
+    Vector3 position5 = add(Transform, Vector3(-0.5, 1.6, 0.6));
+    Vector3 position6 = add(add(Transform, Vector3(0.6, 1.6, 0)), Vector3(0, 0, -0.6));
+    Vector3 position7 = add(add(Transform, Vector3(0.6, 0, 0)), Vector3(0, 0, -0.6));
+    Vector3 position8 = add(add(Transform, Vector3(-0.5, 0, 0)), Vector3(0, 0, -0.6)); 
+    Vector3 position9 = add(add(Transform, Vector3(-0.5, 1.6, 0)), Vector3(0, 0, -0.6));
 
     Vector3 vector = WorldToScreenPoint(camera, position2);
     Vector3 vector2 = WorldToScreenPoint(camera, position3);
@@ -18,22 +27,22 @@ void Draw3dBox(ImDrawList *draw,Vector3 Transform,void * camera,int glHeight,int
     Vector3 vector7 = WorldToScreenPoint(camera, position8);
     Vector3 vector8 = WorldToScreenPoint(camera, position9);
 
-    if (vector.Z > 0 && vector2.Z > 0 && vector3.Z > 0 && vector4.Z > 0 && vector5.Z > 0 && vector6.Z > 0 && vector7.Z > 0 && vector8.Z > 0 )
+    if (vector.z > 0 && vector2.z > 0 && vector3.z > 0 && vector4.z > 0 && vector5.z > 0 && vector6.z > 0 && vector7.z > 0 && vector8.z > 0 )
     {
-        draw->AddLine({(float) (glWidth -(glWidth -vector.X)),(glHeight -vector.Y)}, {glWidth - (glWidth - vector2.X),glHeight -vector2.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector3.X)),(glHeight -vector3.Y)}, {glWidth - (glWidth - vector2.X),glHeight -vector2.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector.X)),(glHeight -vector.Y)}, {glWidth - (glWidth - vector4.X),glHeight -vector4.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector4.X)),(glHeight -vector4.Y)}, {glWidth - (glWidth - vector3.X),glHeight -vector3.Y}, ToColor(configs.esp.ESPColor), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector.x)),(glHeight -vector.y)}, {glWidth - (glWidth - vector2.x),glHeight -vector2.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector3.x)),(glHeight -vector3.y)}, {glWidth - (glWidth - vector2.x),glHeight -vector2.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector.x)),(glHeight -vector.y)}, {glWidth - (glWidth - vector4.x),glHeight -vector4.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector4.x)),(glHeight -vector4.y)}, {glWidth - (glWidth - vector3.x),glHeight -vector3.y}, ToColor(EspAlive), 2.0f);
 
-        draw->AddLine({(float) (glWidth -(glWidth -vector5.X)),(glHeight -vector5.Y)}, {glWidth - (glWidth - vector6.X),glHeight -vector6.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector7.X)),(glHeight -vector7.Y)}, {glWidth - (glWidth - vector6.X),glHeight -vector6.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector5.X)),(glHeight -vector5.Y)}, {glWidth - (glWidth - vector8.X),glHeight -vector8.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector8.X)),(glHeight -vector8.Y)}, {glWidth - (glWidth - vector7.X),glHeight -vector7.Y}, ToColor(configs.esp.ESPColor), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector5.x)),(glHeight -vector5.y)}, {glWidth - (glWidth - vector6.x),glHeight -vector6.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector7.x)),(glHeight -vector7.y)}, {glWidth - (glWidth - vector6.x),glHeight -vector6.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector5.x)),(glHeight -vector5.y)}, {glWidth - (glWidth - vector8.x),glHeight -vector8.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector8.x)),(glHeight -vector8.y)}, {glWidth - (glWidth - vector7.x),glHeight -vector7.y}, ToColor(EspAlive), 2.0f);
 
-        draw->AddLine({(float) (glWidth -(glWidth -vector.X)),(glHeight -vector.Y)}, {glWidth - (glWidth - vector5.X),glHeight -vector5.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector2.X)),(glHeight -vector2.Y)}, {glWidth - (glWidth - vector6.X),glHeight -vector6.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector3.X)),(glHeight -vector3.Y)}, {glWidth - (glWidth - vector7.X),glHeight -vector7.Y}, ToColor(configs.esp.ESPColor), 2.0f);
-        draw->AddLine({(float) (glWidth -(glWidth -vector4.X)),(glHeight -vector4.Y)}, {glWidth - (glWidth - vector8.X),glHeight -vector8.Y}, ToColor(configs.esp.ESPColor), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector.x)),(glHeight -vector.y)}, {glWidth - (glWidth - vector5.x),glHeight -vector5.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector2.x)),(glHeight -vector2.y)}, {glWidth - (glWidth - vector6.x),glHeight -vector6.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector3.x)),(glHeight -vector3.y)}, {glWidth - (glWidth - vector7.x),glHeight -vector7.y}, ToColor(EspAlive), 2.0f);
+        draw->AddLine({(float) (glWidth -(glWidth -vector4.x)),(glHeight -vector4.y)}, {glWidth - (glWidth - vector8.x),glHeight -vector8.y}, ToColor(EspAlive), 2.0f);
     
     }
 }
